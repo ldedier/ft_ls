@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstpop.c                                        :+:      :+:    :+:   */
+/*   ft_delete_node_ptr.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/15 16:34:35 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/15 16:35:05 by ldedier          ###   ########.fr       */
+/*   Created: 2018/11/20 15:21:30 by ldedier           #+#    #+#             */
+/*   Updated: 2018/11/20 19:51:26 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstpop(t_list **list)
+int		ft_delete_node_ptr(t_list **prev, t_list **ptr, t_list **list)
 {
-	void	*content;
-	t_list	*ptr;
-
-	if (*list != NULL)
-	{
-		ptr = *list;
-		content = ptr->content;
-		*list = (*list)->next;
-		free(ptr);
-		free(content);
-	}
+	if (*prev == NULL)
+		*list = (*ptr)->next;
+	else
+		(*prev)->next = (*ptr)->next;
+	free(*ptr);
+	return (0);
 }

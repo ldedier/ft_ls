@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2018/06/12 10:43:01 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/22 17:42:37 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_isseparator(int c);
 int					ft_isseparator_light(int c);
 void				ft_lstpushback(t_list **alst, t_list *newelem);
-void				*ft_lstpop(t_list **lst);
+void				*ft_lstpop_ptr(t_list **lst);
+void				ft_lstpop(t_list **lst);
 int					ft_lstlength(t_list *list);
 void				ft_sort_tab(int *tab, size_t size);
 t_tree				*ft_newtree(void *content);
@@ -123,5 +124,17 @@ int					ft_isspace(int c);
 int					ft_onesign(int n);
 void				ft_print_line(char *str);
 char				*ft_strjoin_3(char const *s1, char const *s2,
-					char const *s3);
+		char const *s3);
+int                 ft_add_to_list_ptr(t_list **list, void *content,
+		size_t size);
+int                 ft_add_to_list_ptr_back(t_list **list, void *content,
+		size_t size);
+int                 ft_add_to_list_back(t_list **list, void *content,
+		size_t size);
+void				ft_lstdel_ptr(t_list **list);
+void				ft_lstdel_value(t_list **list);
+int					ft_delete_node(t_list **prev, t_list **ptr, t_list **vs);
+int					ft_delete_node_ptr(t_list **prv, t_list **ptr, t_list **vs);
+void				ft_lst_mergesort(t_list **list,
+		int (*sort)(void *, void *), int rev);
 #endif
