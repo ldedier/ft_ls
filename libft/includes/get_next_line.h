@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/08 15:42:52 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/20 21:31:53 by ldedier          ###   ########.fr       */
+/*   Created: 2017/11/08 21:37:14 by ldedier           #+#    #+#             */
+/*   Updated: 2017/11/23 13:13:59 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_GET_NEXT_LINE_H
 # define FT_GET_NEXT_LINE_H
 
-# include <limits.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <unistd.h>
+# include <stdio.h>
 # include "libft.h"
 # define BUFF_SIZE 4096
 
-typedef struct	s_gnl
+typedef struct	s_fd_buffer
 {
 	int			fd;
-	char		*rest;
-	char		*whole_buffer;
-}				t_gnl;
+	char		*buffer;
+}				t_fd_buffer;
 
 int				get_next_line(int const fd, char **line);
 

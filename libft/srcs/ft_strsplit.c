@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 19:52:55 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/20 20:43:32 by ldedier          ###   ########.fr       */
+/*   Updated: 2017/11/08 13:52:51 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ static char	*ft_word_dup(char const *s, int c, int indice)
 	indlen[1] = 0;
 	i = 0;
 	ft_update_values(indlen, s, c, indice);
-	if (!(res = (char *)malloc(sizeof(char) * (indlen[1] + 1))))
+	res = (char *)malloc(sizeof(char) * (indlen[1] + 1));
+	if (res == NULL)
 		return (NULL);
 	while (i < indlen[1])
 	{
@@ -104,17 +105,13 @@ char		**ft_strsplit(char const *s, char c)
 		return (NULL);
 	i = 0;
 	nb_words = ft_nb_words(s, c);
-	if (!(res = (char **)malloc(sizeof(char *) * (nb_words + 1))))
+	res = (char **)malloc(sizeof(char *) * (nb_words + 1));
+	if (res == NULL)
 		return (NULL);
 	while (i < nb_words)
 	{
-		if (!(res[i] = ft_word_dup(s, c, i)))
-		{
-			while (i--)
-				free(res[i]);
-			free(res);
+		if ((res[i] = ft_word_dup(s, c, i)) == NULL)
 			return (NULL);
-		}
 		i++;
 	}
 	res[i] = 0;

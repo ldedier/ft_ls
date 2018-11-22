@@ -34,7 +34,7 @@ LIBFT = $(LIBFTDIR)/libft.a
 OK_COLOR = \x1b[32;01m
 EOC = \033[0m
 
-SRCS_NO_PREFIX =	main.c
+SRCS_NO_PREFIX = main.c
 
 INCLUDES_NO_PREFIX = ft_ls.h
 
