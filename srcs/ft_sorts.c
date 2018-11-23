@@ -22,6 +22,16 @@ int		ft_sort_lexicographic(void *file1, void *file2)
 	return (ft_strcmp(f1->name, f2->name));
 }
 
+int		ft_sort_lexicographic_err(void *err1, void *err2)
+{
+	t_error	*e1;
+	t_error	*e2;
+
+	e1 = (t_error *)err1;
+	e2 = (t_error *)err2;
+	return (ft_strcmp(e1->path, e2->path));
+}
+
 int		ft_sort_modification_time(void *file1, void *file2)
 {
 	t_file	*f1;

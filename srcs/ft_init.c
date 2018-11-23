@@ -12,24 +12,43 @@
 
 #include "ft_ls.h"
 
-int main(int argc, char **argv)
+void	ft_init_env(t_env *e)
 {
-	t_lflags	lflags;
+	e->directories = NULL;
+	e->errors = NULL;
+	ft_init_directory_no_path(&(e->regular_file_group));
+}
 
-	ft_init_lflags(&lflags);
-	if (argc < 2)
-		return (ft_process_ls_directory(&lflags, "."));
-	else
-	{
-		if (ft_describe_options(argv[1]))
-		{
-			if (ft_parse_options(argv[1], &lflags))
-				return (1);
-			if (argc < 3)
-				return (ft_process_ls_directory(&lflags, "."));
-			return (ft_process_ls(&lflags, 2, argc, argv));
-		}
-		else
-			return (ft_process_ls(&lflags, 1, argc, argv));
-	}
+void	ft_init_directory_no_path(t_directory *directory)
+{
+	directory->files = NULL;
+	directory->path = NULL;
+	directory->total_blocks = 0;
+	directory->max_length_uid = 0;
+	directory->max_length_gid = 0;
+	directory->max_links = 0;
+	directory->max_size_length = 0;
+}
+
+int		ft_init_directory(t_directory *directory, char *path)
+{
+	ft_init_directory_no_path(directory);
+	if (!(directory->path = ft_strdup(path)))
+		return (1);
+	return (0);
+}
+
+void	ft_init_lflags(t_lflags *lflags)
+{
+	lflags->sort_format = LEXICOGRAPHIC;
+	lflags->reverse_sort = 0;
+	lflags->long_format = 0;
+	lflags->recursive = 0;
+	lflags->all = 0;
+	lflags->dir_as_file = 0;
+	lflags->colored = 0;
+	lflags->show_owner = 1;
+	lflags->last_access_flag = 0;
+	lflags->verbose = 0;
+	lflags->first_entry = 1;
 }

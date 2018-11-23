@@ -30,7 +30,9 @@ LIBFT = $(LIBFTDIR)/libft.a
 OK_COLOR = \x1b[32;01m
 EOC = \033[0m
 
-SRCS_NO_PREFIX = main.c ft_options.c ft_options_sort.c ft_sorts.c
+SRCS_NO_PREFIX =	main.c ft_options.c ft_options_sort.c ft_sorts.c ft_print.c\
+					ft_errors.c ft_options_func.c ft_init.c ft_process_ls.c\
+					ft_fill.c ft_tools.c ft_print_errors.c
 
 INCLUDES_NO_PREFIX = ft_ls.h
 
