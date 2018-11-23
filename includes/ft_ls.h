@@ -16,15 +16,20 @@
 # include <time.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <sys/xattr.h>
 # include <pwd.h>
 # include <grp.h>
 # include <stdio.h>
 # include "libft.h"
 
+# define XATTR_SIZE	10000
+
 typedef struct		s_file
 {
 	struct stat		stat;
-	struct dirent	entry;
+	char			*name;
+	struct passwd	*user;
+	struct group	*group;
 }					t_file;
 
 typedef enum		e_sort
@@ -48,6 +53,16 @@ typedef struct		s_lflags
 	char			colored;
 }					t_lflags;
 
+typedef struct		s_directory
+{
+	t_list			*files;
+	int				total_bytes;
+	int				max_length_uid;
+	int				max_length_gid;
+	int				max_links;
+	int				max_size_length;
+}					t_directory;
+
 typedef void		(*t_opt_func)(t_lflags *);
 
 void				ft_opt_r_maj(t_lflags *lflags);
@@ -66,4 +81,5 @@ int					ft_sort_lexicographic(void *file1, void *file2);
 int					ft_sort_last_access(void *file1, void *file2);
 int					ft_sort_modification_time(void *file1, void *file2);
 
+int					ft_process_ls_directory(t_lflags *lflags, char *path);
 #endif

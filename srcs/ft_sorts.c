@@ -19,7 +19,7 @@ int		ft_sort_lexicographic(void *file1, void *file2)
 
 	f1 = (t_file *)file1;
 	f2 = (t_file *)file2;
-	return (ft_strcmp(f1->entry.d_name, f2->entry.d_name));
+	return (ft_strcmp(f1->name, f2->name));
 }
 
 int		ft_sort_modification_time(void *file1, void *file2)
@@ -33,7 +33,7 @@ int		ft_sort_modification_time(void *file1, void *file2)
 	if ((ret = (f2->stat.st_mtimespec.tv_sec - f1->stat.st_mtimespec.tv_sec)))
 		return (ret);
 	else
-		return (ft_strcmp(f1->entry.d_name, f2->entry.d_name));
+		return (ft_strcmp(f1->name, f2->name));
 }
 
 int		ft_sort_last_access(void *file1, void *file2)
@@ -47,5 +47,5 @@ int		ft_sort_last_access(void *file1, void *file2)
 	if ((ret = (f2->stat.st_atimespec.tv_sec - f1->stat.st_atimespec.tv_sec)))
 		return (ret);
 	else
-		return (ft_strcmp(f1->entry.d_name, f2->entry.d_name));
+		return (ft_strcmp(f1->name, f2->name));
 }

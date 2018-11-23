@@ -21,7 +21,7 @@ char	*ft_strjoin_3(char const *s1, char const *s2, char const *s3)
 	res = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + 1);
 	if (res == NULL)
 		return (NULL);
-	ft_strcat(res, s1);
+	ft_strcpy(res, s1);
 	ft_strcat(res, s2);
 	ft_strcat(res, s3);
 	return (res);
