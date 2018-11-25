@@ -1,0 +1,24 @@
+srcs/ft_fill.c:	if (!(file = ft_process_fill_files_list(stat, name, &(directory->files))))
+srcs/ft_init.c:	directory->files = NULL;
+srcs/ft_init.c:	directory->path = NULL;
+srcs/ft_init.c:	directory->total_blocks = 0;
+srcs/ft_init.c:	directory->max_length_uid = 0;
+srcs/ft_init.c:	directory->max_length_gid = 0;
+srcs/ft_init.c:	directory->max_links = 0;
+srcs/ft_init.c:	directory->max_size_length = 0;
+srcs/ft_init.c:	if (!(directory->path = ft_strdup(path)))
+srcs/ft_print.c:	if (directory->path && lflags->verbose)
+srcs/ft_print.c:		ft_printf("%s:\n", directory->path);
+srcs/ft_print.c:	if (directory->path && lflags->long_format)
+srcs/ft_print.c:		ft_printf("total %d\n", directory->total_blocks);
+srcs/ft_print.c:	ptr = directory->files;
+srcs/ft_tools.c:	directory->total_blocks += file->stat.st_blocks;
+srcs/ft_tools.c:	if ((ret = ft_strlen(file->user)) > directory->max_length_uid)
+srcs/ft_tools.c:		directory->max_length_uid = ret;
+srcs/ft_tools.c:	if ((ret = ft_strlen(file->group)) > directory->max_length_gid)
+srcs/ft_tools.c:		directory->max_length_gid = ret;
+srcs/ft_tools.c:	if (directory->max_links < file->stat.st_nlink)
+srcs/ft_tools.c:		directory->max_links = file->stat.st_nlink;
+srcs/ft_tools.c:			directory->max_size_length)
+srcs/ft_tools.c:		directory->max_size_length = ret;
+srcs/ft_tools.c:		if (ft_process_ls_directory(lflags, directory->name))

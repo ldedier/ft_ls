@@ -17,14 +17,20 @@ int		ft_process_ls(t_lflags *lflags, int i, int argc, char **argv)
 	t_env		e;
 	struct stat	st;
 	int 		ret;
-
-	ft_init_env(&e);
+	int			(*stat_func)(const char *restrict , struct stat *restrict);
+	
+	if (ft_init_env(&e))
+		return (1);
 	ret = 0;
+	if (lflags->long_format)
+		stat_func = lstat;
+	else
+		stat_func = stat;
 	if (i < argc - 1)
 		lflags->verbose = 1;
 	while (i < argc)
 	{
-		if (stat(argv[i], &st) == -1)
+		if (stat_func(argv[i], &st) == -1)
 		{
 			ret = 1;
 			if (ft_fill_path_error_list(argv[i], &(e.errors)))

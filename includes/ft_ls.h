@@ -17,6 +17,8 @@
 # include <dirent.h>
 # include <sys/stat.h>
 # include <sys/xattr.h>
+# include <sys/types.h>
+# include <sys/acl.h>
 # include <pwd.h>
 # include <grp.h>
 # include <stdio.h>
@@ -30,8 +32,9 @@ typedef struct		s_file
 {
 	struct stat		stat;
 	char			*name;
-	struct passwd	*user;
-	struct group	*group;
+	char			*user;
+	char			*group;
+	char			*destination;
 }					t_file;
 
 typedef enum		e_sort
@@ -70,7 +73,9 @@ typedef struct		s_directory
 	int				total_blocks;
 	int				max_length_uid;
 	int				max_length_gid;
-	int				max_links;
+	nlink_t			max_links;
+	int				max_links_length;
+	off_t			max_size;
 	int				max_size_length;
 }					t_directory;
 
@@ -101,7 +106,7 @@ int					ft_sort_last_access(void *file1, void *file2);
 int					ft_sort_modification_time(void *file1, void *file2);
 
 int					ft_update_directory_stats(t_file *file, t_directory *dir);
-
+void				ft_update_directory_data(t_directory *dir);
 int					ft_print_dir(t_directory *dir, t_lflags *lfs);
 
 int					ft_process_error_dir(char *path, t_lflags *lflags);
@@ -114,7 +119,7 @@ int					ft_parse_options(char *str, t_lflags *lflags);
 void				ft_init_directory_no_path(t_directory *dir);
 int					ft_init_directory(t_directory *dir, char *path);
 void				ft_init_lflags(t_lflags *lflags);
-void				ft_init_env(t_env *e);
+int					ft_init_env(t_env *e);
 
 void				ft_sort_files_list(t_list **files, t_lflags *lflags);
 void				ft_sort_errors(t_list **errors);

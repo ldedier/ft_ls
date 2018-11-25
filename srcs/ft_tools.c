@@ -26,12 +26,6 @@ void	ft_affich_stat(struct stat sb)
 	printf("\n");
 }
 
-int		ft_get_size_length(int bytes)
-{
-	(void)bytes;
-	return (0);
-}
-
 void	ft_sort_errors(t_list **errors)
 {
 	ft_lst_mergesort(errors, &ft_sort_lexicographic_err, 0);
@@ -47,24 +41,62 @@ void	ft_sort_files_list(t_list **files, t_lflags *lflags)
 		ft_lst_mergesort(files, &ft_sort_last_access, lflags->reverse_sort);
 }
 
+int		ft_off_tlen(off_t val)
+{
+	int res;
+
+	res = 1;
+	while (val / 10 != 0)
+	{
+		val /= 10;
+		res++;
+	}
+	return (res);
+}
+
+int		ft_nlink_tlen(nlink_t val)
+{
+	int res;
+
+	res = 1;
+	while (val / 10 != 0)
+	{
+		val /= 10;
+		res++;
+	}
+	return (res);
+}
+
+void	ft_update_directory_data(t_directory *dir)
+{
+	dir->max_links_length = ft_nlink_tlen(dir->max_links);
+	dir->max_size_length = ft_off_tlen(dir->max_size);
+}
+
 int		ft_update_directory_stats(t_file *file, t_directory *directory)
 {
-	int ret;
+	struct passwd	*pwd;
+	struct group	*group;
+	off_t			ret;
 
-	if (!(file->user = getpwuid(file->stat.st_uid)))
+	if (!(pwd = getpwuid(file->stat.st_uid)))
 		return (1);
-	if (!(file->group = getgrgid(file->stat.st_gid)))
+	if (!(group = getgrgid(file->stat.st_gid)))
+		return (1);
+	if (!(file->user = ft_strdup(pwd->pw_name)))
+		return (1);
+	if (!(file->group = ft_strdup(group->gr_name)))
 		return (1);
 	directory->total_blocks += file->stat.st_blocks;
-	if ((ret = ft_strlen(file->user->pw_name)) > directory->max_length_uid)
+	if ((ret = ft_strlen(file->user)) > directory->max_length_uid)
 		directory->max_length_uid = ret;
-	if ((ret = ft_strlen(file->group->gr_name)) > directory->max_length_gid)
+	if ((ret = ft_strlen(file->group)) > directory->max_length_gid)
 		directory->max_length_gid = ret;
 	if (directory->max_links < file->stat.st_nlink)
 		directory->max_links = file->stat.st_nlink;
-	if ((ret = ft_get_size_length(file->stat.st_size)) >
-			directory->max_size_length)
-		directory->max_size_length = ret;
+	if ((ret = file->stat.st_size) >
+			directory->max_size)
+		directory->max_size = ret;
 	return (0);
 }
 

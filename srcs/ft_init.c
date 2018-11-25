@@ -12,11 +12,13 @@
 
 #include "ft_ls.h"
 
-void	ft_init_env(t_env *e)
+int		ft_init_env(t_env *e)
 {
 	e->directories = NULL;
 	e->errors = NULL;
-	ft_init_directory_no_path(&(e->regular_file_group));
+	if (ft_init_directory(&(e->regular_file_group), ""))
+		return (1);
+	return (0);
 }
 
 void	ft_init_directory_no_path(t_directory *directory)
@@ -27,7 +29,7 @@ void	ft_init_directory_no_path(t_directory *directory)
 	directory->max_length_uid = 0;
 	directory->max_length_gid = 0;
 	directory->max_links = 0;
-	directory->max_size_length = 0;
+	directory->max_size = 0;
 }
 
 int		ft_init_directory(t_directory *directory, char *path)

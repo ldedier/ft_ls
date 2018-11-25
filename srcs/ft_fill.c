@@ -20,6 +20,7 @@ t_file	*ft_new_file(struct stat stat, char *name)
 		return (NULL);
 	res->stat = stat;
 	res->name = ft_strdup(name);
+	res->destination = NULL;
 	return (res);
 }
 
