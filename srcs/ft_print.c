@@ -145,14 +145,30 @@ void	ft_print_name(t_file *file)
 
 }
 
+char	*ft_get_full_path(t_directory *dir, t_file *file)
+{
+	char *full_path;
+
+	if (dir->path)
+	{
+		if (!(full_path = ft_strjoin_3(dir->path, "/", file->name)))
+			return (NULL);
+	}
+	else
+	{
+		if (!(full_path = ft_strdup(file->name)))
+			return (NULL);
+	}
+	return (full_path);
+}
+
 int		ft_print_long_format(t_directory *directory, t_file *file,
 			t_lflags *lflags)
 {
 	char	str[12];
 	char	*full_path;
 
-	
-	if (!(full_path = ft_strjoin_3(directory->path, "/", file->name)))
+	if (!(full_path = ft_get_full_path(directory, file)))
 		return (1);
 	(void)lflags;
 	ft_put_file_symbol(file, str, full_path);
@@ -198,10 +214,10 @@ int		ft_print_dir(t_directory *directory, t_lflags *lflags)
 		lflags->first_entry = 0;
 	else
 		ft_printf("\n");
-	if (ft_strlen(directory->path) && lflags->verbose)
+	if (directory->path && lflags->verbose)
 		ft_printf("%s:\n", directory->path);
 	ft_update_directory_data(directory);
-	if (ft_strlen(directory->path) && lflags->long_format)
+	if (directory->path && lflags->long_format)
 		ft_printf("total %d\n", directory->total_blocks);
 	ptr = directory->files;
 	while (ptr != NULL)

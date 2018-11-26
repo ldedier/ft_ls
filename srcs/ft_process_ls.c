@@ -18,9 +18,8 @@ int		ft_process_ls(t_lflags *lflags, int i, int argc, char **argv)
 	struct stat	st;
 	int 		ret;
 	int			(*stat_func)(const char *restrict , struct stat *restrict);
-	
-	if (ft_init_env(&e))
-		return (1);
+
+	ft_init_env(&e);
 	ret = 0;
 	if (lflags->long_format)
 		stat_func = lstat;
@@ -84,7 +83,7 @@ int		ft_process_ls_directory(t_lflags *lflags, char *path)
 	}
 	ft_sort_files_list(&(directory.files), lflags);
 	ft_print_dir(&directory, lflags);
-	ft_lstdel_value(&(directory.files));
+	ft_lstdel(&(directory.files), &ft_free_file);
 	free(directory.path);
 	closedir(current_dir);
 	return (0);

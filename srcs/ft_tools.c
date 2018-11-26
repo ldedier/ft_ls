@@ -12,6 +12,27 @@
 
 #include "ft_ls.h"
 
+void	ft_free_file(void *f, size_t size)
+{
+	t_file *file;
+
+	(void)size;
+	file = f;
+	free(file->name);
+	free(file->user);
+	free(file->group);
+	if (file->destination)
+		free(file->destination);
+	free(file);
+}
+
+void	ft_free_directory(t_directory *directory, size_t size)
+{
+	(void)size;
+	free(directory->path);
+	free(directory);
+}
+
 void	ft_affich_stat(struct stat sb)
 {
 	printf("\tinode: %llu\n", sb.st_ino);

@@ -12,13 +12,11 @@
 
 #include "ft_ls.h"
 
-int		ft_init_env(t_env *e)
+void	ft_init_env(t_env *e)
 {
 	e->directories = NULL;
 	e->errors = NULL;
-	if (ft_init_directory(&(e->regular_file_group), ""))
-		return (1);
-	return (0);
+	ft_init_directory_no_path(&(e->regular_file_group));
 }
 
 void	ft_init_directory_no_path(t_directory *directory)

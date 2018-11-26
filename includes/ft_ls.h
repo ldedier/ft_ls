@@ -119,7 +119,7 @@ int					ft_parse_options(char *str, t_lflags *lflags);
 void				ft_init_directory_no_path(t_directory *dir);
 int					ft_init_directory(t_directory *dir, char *path);
 void				ft_init_lflags(t_lflags *lflags);
-int					ft_init_env(t_env *e);
+void				ft_init_env(t_env *e);
 
 void				ft_sort_files_list(t_list **files, t_lflags *lflags);
 void				ft_sort_errors(t_list **errors);
@@ -140,4 +140,7 @@ int					ft_process_ls_directory(t_lflags *lflags, char *path);
 
 int					ft_print_errors(t_list *errors);
 int					ft_print_directories(t_list *directories, t_lflags *lflgs);
+
+void				ft_free_file(void *file, size_t size);
+void				ft_free_directories(t_list **directories);
 #endif
