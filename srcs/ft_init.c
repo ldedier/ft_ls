@@ -28,6 +28,7 @@ void	ft_init_directory_no_path(t_directory *directory)
 	directory->max_length_gid = 0;
 	directory->max_links = 0;
 	directory->max_size = 0;
+	directory->has_devices = 0;
 }
 
 int		ft_init_directory(t_directory *directory, char *path)

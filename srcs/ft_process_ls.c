@@ -58,6 +58,35 @@ int		ft_process_ls(t_lflags *lflags, int i, int argc, char **argv)
 	if (e.regular_file_group.files)
 		ret  = ret | ft_print_dir(&(e.regular_file_group), lflags);
 	ret = ret | ft_print_directories(e.directories, lflags);
+	ft_lstdel(&(e.directories), &ft_free_file);
+	ft_lstdel(&(e.regular_file_group.files), &ft_free_file);
+	//free
+	return (ret);
+}
+
+int		ft_process_ls_directories(t_directory *dir, t_lflags *lflags)
+{
+	t_list	*ptr;
+	t_file	*file;
+	int		ret;
+	char	*str;
+
+	lflags->verbose = 1;
+	ptr = dir->files;
+	while (ptr != NULL)
+	{
+		file = ptr->content;
+		if (S_ISDIR(file->stat.st_mode) &&
+				strcmp(file->name, ".") && strcmp(file->name, ".."))
+		{
+			if (!(str = ft_strjoin_3(dir->path, "/", file->name)))
+				return (1);
+			if (ft_process_ls_directory(lflags, str))
+				ret = 1;
+			free(str);
+		}
+		ptr = ptr->next;
+	}
 	return (ret);
 }
 
@@ -65,7 +94,9 @@ int		ft_process_ls_directory(t_lflags *lflags, char *path)
 {
 	t_directory		directory;
 	DIR				*current_dir;
+	int ret;
 
+	ret = 0;
 	if (ft_init_directory(&directory, path))
 		return (1);
 	if (!(current_dir = opendir(path)))
@@ -83,8 +114,13 @@ int		ft_process_ls_directory(t_lflags *lflags, char *path)
 	}
 	ft_sort_files_list(&(directory.files), lflags);
 	ft_print_dir(&directory, lflags);
+	if (lflags->recursive)
+	{
+		if (ft_process_ls_directories(&directory, lflags))
+			ret = 1;
+	}
 	ft_lstdel(&(directory.files), &ft_free_file);
 	free(directory.path);
 	closedir(current_dir);
-	return (0);
+	return (ret);
 }

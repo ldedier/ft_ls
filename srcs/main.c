@@ -12,6 +12,14 @@
 
 #include "ft_ls.h"
 
+void __attribute__((destructor)) end();
+
+void	end(void)
+{
+//	ft_printf("destructor loop\n");
+//	while(1);
+}
+
 int main(int argc, char **argv)
 {
 	t_lflags	lflags;

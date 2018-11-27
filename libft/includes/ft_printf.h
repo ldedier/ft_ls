@@ -23,8 +23,29 @@
 # define RED		"\x1B[31m"
 # define GREEN 		"\x1B[32m"
 # define YELLOW		"\x1B[33m"
-# define PINK		"\x1B[35m"
-# define CYAN		"\x1B[34m"
+# define BLUE		"\x1B[34m"
+# define MAGENTA	"\x1B[35m"
+# define CYAN		"\x1B[36m"
+# define WHITE		"\x1B[37m"
+# define L_GREY		"\x1B[90m"
+# define L_BLUE		"\x1B[94m"
+# define L_MAGENTA	"\x1B[95m"
+# define L_CYAN		"\x1B[96m"
+
+# define BRED		"\x1B[41m"
+# define BGREEN 	"\x1B[42m"
+# define BYELLOW	"\x1B[43m"
+# define BBLUE		"\x1B[44m"
+# define BMAGENTA	"\x1B[44m"
+# define BCYAN		"\x1B[46m"
+# define BWHITE		"\x1B[47m"
+# define BL_BLUE	"\x1B[104m"
+# define BL_MAGENTA	"\x1B[105m"
+# define BL_CYAN	"\x1B[106m"
+
+# define BOLD		"\x1b[1m"
+# define UNDERLINE	"\x1b[4m"
+
 # define EOC		"\033[0m"
 
 typedef union		u_var

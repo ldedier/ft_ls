@@ -118,6 +118,8 @@ int		ft_update_directory_stats(t_file *file, t_directory *directory)
 	if ((ret = file->stat.st_size) >
 			directory->max_size)
 		directory->max_size = ret;
+	if (S_ISBLK(file->stat.st_mode) || S_ISCHR(file->stat.st_mode))
+		directory->has_devices = 1;
 	return (0);
 }
 

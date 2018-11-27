@@ -26,8 +26,13 @@
 # include <errno.h>
 # include "libft.h"
 
-# define XATTR_SIZE	10000
-
+# define MAX_COL	30
+# define XATTR_SIZE	100000
+# define DIR_COL	L_CYAN BOLD
+# define CHR_COL	BLUE BYELLOW
+# define BLK_COL	BLUE BCYAN
+# define FIFO_COL	RED
+# define SOCK_COL	RED
 typedef struct		s_file
 {
 	struct stat		stat;
@@ -77,6 +82,7 @@ typedef struct		s_directory
 	int				max_links_length;
 	off_t			max_size;
 	int				max_size_length;
+	char			has_devices;
 }					t_directory;
 
 typedef struct		s_env

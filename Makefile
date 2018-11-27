@@ -12,7 +12,7 @@
 
 NAME		= ft_ls
 
-CC      = gcc
+CC      = gcc -g3
 
 PWD = \"$(shell pwd)\"
 

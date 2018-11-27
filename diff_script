@@ -1,0 +1,3 @@
+ls -l $1 &> true_ls
+./ft_ls -l $1 &> my_ls
+diff true_ls my_ls > diffsamer || vim diffsamer
