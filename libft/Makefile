@@ -6,7 +6,7 @@
 #    By: ldedier <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/06 18:20:16 by ldedier           #+#    #+#              #
-#    Updated: 2018/11/22 17:16:24 by ldedier          ###   ########.fr        #
+#    Updated: 2018/11/27 19:07:34 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS_NO_PREFIX = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 	   ft_putstr.c ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c\
 	   ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c\
 	   ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_isseparator.c ft_lstpushback.c\
-	   ft_lstpop.c ft_lstlength.c ft_sort_tab.c ft_newtree.c ft_infix.c\
+	   ft_lstpop.c ft_lstlength.c ft_sort_tab.c ft_infix.c ft_tree_new_ptr.c\
 	   ft_prefix.c ft_postfix.c get_next_line.c ft_free_split.c\
 	   ft_abs.c ft_max.c ft_min.c ft_lstnew_ptr.c ft_putchar_buff.c ft_printf.c\
 	   ft_return.c ft_init.c ft_putoctal.c ft_putnbr_unsigned.c\

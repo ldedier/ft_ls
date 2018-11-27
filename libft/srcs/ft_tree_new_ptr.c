@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_newtree.c                                       :+:      :+:    :+:   */
+/*   ft_tree_new_ptr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 20:48:29 by ldedier           #+#    #+#             */
-/*   Updated: 2017/11/07 20:53:28 by ldedier          ###   ########.fr       */
+/*   Created: 2018/11/27 19:00:51 by ldedier           #+#    #+#             */
+/*   Updated: 2018/11/27 19:09:12 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_tree	*ft_newtree(void *content)
+t_tree	*ft_tree_new_ptr(void *content)
 {
 	t_tree *tree;
 
-	tree = (t_tree *)malloc(sizeof(t_tree));
-	if (tree == NULL)
+	if (!(tree = (t_tree *)malloc(sizeof(t_tree))))
 		return (NULL);
 	tree->content = content;
 	tree->left = NULL;
