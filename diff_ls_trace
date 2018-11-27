@@ -4,4 +4,4 @@ stdout is ok :)
 < ls: authserver: Permission denied
 ---
 > ft_ls: authserver: Permission denied
-(stderr): test with args: -lRa /usr
+(stderr): test with args: -Rlat /usr

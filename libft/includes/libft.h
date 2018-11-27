@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 20:07:52 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 23:56:50 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <string.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
-
 # define MAX_INT 	2147483647
 
 typedef struct		s_list
@@ -126,7 +125,9 @@ int					ft_tree_add_sorted_mul(t_tree **tree, void *content,
 						int (*sort)(void *, void *), int mul);
 int					ft_tree_add_sorted(t_tree **tree, void *content,
 						int (*sort)(void *, void *));
-
+void				ft_tree_del(t_tree **tree, void (*free_func)(void *));
+void				ft_tree_del_value(t_tree **tree);
+void				ft_tree_del_ptr(t_tree **tree);
 int					get_next_line(const int fd, char **line);
 
 void				ft_free_split(char **split);
@@ -147,4 +148,5 @@ int					ft_onesign(int n);
 void				ft_print_line(char *str);
 char				*ft_strjoin_3(char const *s1, char const *s2,
 						char const *s3);
+int					ft_free_turn(void *to_free, int ret);
 #endif

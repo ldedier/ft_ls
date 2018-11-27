@@ -6,31 +6,31 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 15:51:21 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 00:23:22 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_free_file_long_format(void *f, size_t size)
+void	ft_free_file_long_format(void *f)
 {
 	t_file *file;
 
-	(void)size;
 	file = (t_file *)f;
 	free(file->name);
+	if (file->user != NULL)
 	free(file->user);
+	if (file->group != NULL)
 	free(file->group);
 	if (file->destination != NULL)
 		free(file->destination);
 	free(file);
 }
 
-void	ft_free_file(void *f, size_t size)
+void	ft_free_file(void *f)
 {
 	t_file *file;
 
-	(void)size;
 	file = (t_file *)f;
 	free(file->name);
 	if (file->destination != NULL)
@@ -38,19 +38,19 @@ void	ft_free_file(void *f, size_t size)
 	free(file);
 }
 
-void	ft_free_files_list(t_list **files, t_lflags *lflags)
+void	ft_free_files_tree(t_tree **files, t_lflags *lflags)
 {
 	if (lflags->long_format)
-		ft_lstdel(files, &ft_free_file_long_format);
+		ft_tree_del(files, &ft_free_file_long_format);
 	else
-		ft_lstdel(files, &ft_free_file);
+		ft_tree_del(files, &ft_free_file);
 }
 
-void	ft_free_directory(t_directory *directory, size_t size)
+void	ft_free_directory(t_directory *directory, t_lflags *lflags)
 {
-	(void)size;
-	free(directory->path);
-	free(directory);
+	if (directory->path)
+		free(directory->path);
+	ft_free_files_tree(&(directory->files), lflags);
 }
 
 void	ft_affich_stat(struct stat sb)
@@ -65,21 +65,6 @@ void	ft_affich_stat(struct stat sb)
 	printf("\tmtime: %s", ctime(&sb.st_mtimespec.tv_sec));
 	printf("\tctime: %s", ctime(&sb.st_ctimespec.tv_sec));
 	printf("\n");
-}
-
-void	ft_sort_errors(t_list **errors)
-{
-	ft_lst_mergesort(errors, &ft_sort_lexicographic_err, 0);
-}
-
-void	ft_sort_files_list(t_list **files, t_lflags *lflags)
-{
-	if (lflags->sort_format == LEXICOGRAPHIC)
-		ft_lst_mergesort(files, &ft_sort_lexicographic, lflags->reverse_sort);
-	else if (lflags->sort_format == TIME_MODIFIED)
-		ft_lst_mergesort(files, &ft_sort_modification_time, lflags->reverse_sort);
-	else if (lflags->sort_format == LAST_ACCESS)
-		ft_lst_mergesort(files, &ft_sort_last_access, lflags->reverse_sort);
 }
 
 int		ft_off_tlen(off_t val)
@@ -143,20 +128,21 @@ int		ft_update_directory_stats(t_file *file, t_directory *directory)
 	return (0);
 }
 
-int		ft_print_directories(t_list *directories, t_lflags *lflags)
+int		ft_print_directories(t_tree *tree, t_lflags *lflags)
 {
-	t_list *ptr;
-	t_file *directory;
-	int		ret;
+	int			ret;
+	t_file		*directory;
 
 	ret = 0;
-	ptr = directories;
-	while (ptr != NULL)
+	if (tree != NULL)
 	{
-		directory = (t_file *)(ptr->content);
+		if (ft_print_directories(tree->left, lflags))
+			ret = 1;
+		directory = (t_file *)(tree->content);
 		if (ft_process_ls_directory(lflags, directory->name, directory->name))
 			ret = 1;
-		ptr = ptr->next;
+		if (ft_print_directories(tree->right, lflags))
+			ret = 1;
 	}
 	return (ret);
 }

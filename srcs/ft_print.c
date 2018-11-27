@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:03:09 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 18:29:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 22:53:47 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void	ft_print_size(t_directory *directory, t_file *file)
 
 int		ft_print_time(t_file *file, t_lflags *lflags)
 {
-	if (lflags->sort_format == LAST_ACCESS)
+	if (lflags->last_access_flag)
 		return ft_print_time_spec(file->stat.st_atimespec);
 	else
 		return ft_print_time_spec(file->stat.st_mtimespec);
@@ -249,7 +249,8 @@ int		ft_print_long_format(t_directory *directory, t_file *file,
 	if (!(full_path = ft_get_full_path(directory, file)))
 		return (1);
 	(void)lflags;
-	ft_put_file_symbol(file, str, full_path);
+	if (ft_put_file_symbol(file, str, full_path))
+		return (ft_free_turn(full_path, 1));
 	ft_put_file_permissions(file, str);
 	ft_put_file_extended_attribute_or_acls(full_path, str);
 	str[11] = '\0';
@@ -259,10 +260,10 @@ int		ft_print_long_format(t_directory *directory, t_file *file,
 		ft_printf(" %-*s ", directory->max_length_uid, file->user);
 	ft_printf(" %-*s ", directory->max_length_gid, file->group);
 	ft_print_size(directory, file);
-	ft_print_time(file, lflags);
+	if (ft_print_time(file, lflags))
+		return (ft_free_turn(full_path, 1));
 	ft_print_name(file, lflags, 1);
-	free(full_path);
-	return (0);
+	return (ft_free_turn(full_path, 0));
 }
 
 int		ft_print_short_format(t_file *file, t_lflags *lflags)
@@ -294,21 +295,28 @@ void	ft_print_header(t_directory *directory, t_lflags *lflags)
 		ft_printf("%s:\n", directory->path);
 }
 
-int		ft_print_dir(t_directory *directory, t_lflags *lflags)
+int		ft_process_print(t_tree *tree, t_directory *dir, t_lflags *lflags)
 {
-	t_list		*ptr;
 	t_file		*file;
 	
+	if (tree != NULL)
+	{
+		if (ft_process_print(tree->left, dir, lflags))
+			return (1);
+		file = tree->content;
+		if (ft_print_dir_file(dir, file, lflags))
+			return (1);
+		if (ft_process_print(tree->right, dir, lflags))
+			return (1);
+	}
+	return (0);
+}
+
+int		ft_print_dir(t_directory *directory, t_lflags *lflags)
+{
 	ft_print_header(directory, lflags);
 	ft_update_directory_data(directory);
 	if (directory->path && lflags->long_format && directory->files)
 		ft_printf("total %d\n", directory->total_blocks);
-	ptr = directory->files;
-	while (ptr != NULL)
-	{
-		file = ptr->content;
-		ft_print_dir_file(directory, file, lflags);
-		ptr = ptr->next;
-	}
-	return (0);
+	return (ft_process_print(directory->files, directory, lflags));
 }

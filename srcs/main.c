@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 13:45:37 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 00:06:56 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ void	end(void)
 //	while(1);
 }
 
-int main(int argc, char **argv)
+void	ft_print_main_error(int ret)
+{
+	if (ret == 2)
+		ft_printf("internal malloc error\n");
+}
+
+int		ft_process_main(int argc, char **argv)
 {
 	t_lflags	lflags;
 
@@ -40,4 +46,17 @@ int main(int argc, char **argv)
 		else
 			return (ft_process_ls(&lflags, 1, argc, argv));
 	}
+}
+
+int		main(int argc, char **argv)
+{
+	int ret;
+
+
+	if ((ret = ft_process_main(argc, argv)))
+	{
+		ft_print_main_error(ret);
+		return (1);
+	}
+	return (0);
 }

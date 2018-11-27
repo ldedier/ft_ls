@@ -6,17 +6,21 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/22 19:41:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 23:13:50 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_init_env(t_env *e)
+void	ft_init_env(t_env *e, t_lflags *lflags)
 {
 	e->directories = NULL;
 	e->errors = NULL;
 	ft_init_directory_no_path(&(e->regular_file_group));
+	if (lflags->long_format)
+		e->stat_func = lstat;
+	else
+		e->stat_func = stat;
 }
 
 void	ft_init_directory_no_path(t_directory *directory)
@@ -42,7 +46,8 @@ int		ft_init_directory(t_directory *directory, char *path)
 void	ft_init_lflags(t_lflags *lflags)
 {
 	lflags->sort_format = LEXICOGRAPHIC;
-	lflags->reverse_sort = 0;
+	lflags->sort_func = &ft_sort_lexicographic;
+	lflags->order = 1;
 	lflags->long_format = 0;
 	lflags->recursive = 0;
 	lflags->all = 0;

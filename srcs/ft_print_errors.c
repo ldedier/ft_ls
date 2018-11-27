@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 16:33:41 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 18:19:08 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 23:41:02 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,19 @@ int		ft_print_error(t_error *error)
 	return (0);
 }
 
-int		ft_print_errors(t_list *errors)
+int		ft_print_errors(t_tree *errors)
 {
-	t_list *ptr;
 	t_error *error;
 
-	ptr = errors;
-	while (ptr != NULL)
+	if (errors != NULL)
 	{
-		error = (t_error *)(ptr->content);
+		if (ft_print_errors(errors->left))
+			return (1);
+		error = (t_error *)(errors->content);
 		if (ft_print_error(error))
 			return (1);
-		ptr = ptr->next;
+		if (ft_print_errors(errors->right))
+			return (1);
 	}
 	return (0);
 }

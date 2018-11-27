@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:07:00 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 18:20:21 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 23:42:15 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,18 @@ t_error	*ft_new_error(char *path)
 	return (res);
 }
 
-int		ft_fill_path_error_list(char *path, t_list **errors)
+int		ft_fill_path_error_tree(char *path, t_tree **errors)
 {
 	t_error *error;
 
 	if (!(error = ft_new_error(path)))
 	{
-		ft_lstdel_value(errors);
+	//	ft_lstdel_value(errors);
 		return (1);
 	}
-	if (ft_add_to_list_ptr_back(errors, error,
-				sizeof(t_error)))
+	if (ft_tree_add_sorted(errors, error, &ft_sort_lexicographic_err))
 	{
-		ft_lstdel_value(errors);
+	//	ft_lstdel_value(errors);
 		return (1);
 	}
 	return (0);
@@ -52,7 +51,7 @@ int		ft_process_error_dir(char *full_path, char *path, t_lflags *lflags)
 	if (lflags->verbose)
 		ft_printf("%s:\n", full_path);
 	if (!(str = ft_strjoin("ft_ls: ", path)))
-		return (1);
+		return (2);
 	perror(str);
 	free(str);
 	return (0);
