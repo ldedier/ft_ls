@@ -1,15 +1,7 @@
 stdout is ok :)
 
-1,5c1,5
-< ls: dwd: No such file or directory
-< ls: fer: No such file or directory
-< ls: ferg: No such file or directory
-< ls: ge: No such file or directory
-< ls: ht: No such file or directory
+1c1
+< ls: authserver: Permission denied
 ---
-> ft_ls: dwd: No such file or directory
-> ft_ls: fer: No such file or directory
-> ft_ls: ferg: No such file or directory
-> ft_ls: ge: No such file or directory
-> ft_ls: ht: No such file or directory
-(stderr): test with args: -Rl . dwd fer ge ferg ht Makefile .
+> ft_ls: authserver: Permission denied
+(stderr): test with args: -lRa /usr
