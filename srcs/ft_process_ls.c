@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 15:02:07 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/23 15:02:07 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 14:41:42 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int		ft_process_ls(t_lflags *lflags, int i, int argc, char **argv)
 	if (e.regular_file_group.files)
 		ret  = ret | ft_print_dir(&(e.regular_file_group), lflags);
 	ret = ret | ft_print_directories(e.directories, lflags);
-	ft_lstdel(&(e.directories), &ft_free_file);
-	ft_lstdel(&(e.regular_file_group.files), &ft_free_file);
+	ft_free_files_list(&(e.directories), lflags);
+	ft_free_files_list(&(e.regular_file_group.files), lflags);
 	//free
 	return (ret);
 }
@@ -81,7 +81,7 @@ int		ft_process_ls_directories(t_directory *dir, t_lflags *lflags)
 		{
 			if (!(str = ft_strjoin_3(dir->path, "/", file->name)))
 				return (1);
-			if (ft_process_ls_directory(lflags, str))
+			if (ft_process_ls_directory(lflags, str, file->name))
 				ret = 1;
 			free(str);
 		}
@@ -90,22 +90,22 @@ int		ft_process_ls_directories(t_directory *dir, t_lflags *lflags)
 	return (ret);
 }
 
-int		ft_process_ls_directory(t_lflags *lflags, char *path)
+int		ft_process_ls_directory(t_lflags *lflags, char *full_path, char *path)
 {
 	t_directory		directory;
 	DIR				*current_dir;
-	int ret;
+	int				ret;
 
 	ret = 0;
-	if (ft_init_directory(&directory, path))
+	if (ft_init_directory(&directory, full_path))
 		return (1);
-	if (!(current_dir = opendir(path)))
+	if (!(current_dir = opendir(full_path)))
 	{
-		ft_process_error_dir(path, lflags);
+		ft_process_error_dir(full_path, path, lflags);
 		free(directory.path);
 		return (1);
 	}
-	if (ft_fill_dir_files_list(&directory, current_dir, path, lflags))
+	if (ft_fill_dir_files_list(&directory, current_dir, full_path, lflags))
 	{
 		closedir(current_dir);
 		ft_lstdel_value(&(directory.files));
@@ -119,7 +119,7 @@ int		ft_process_ls_directory(t_lflags *lflags, char *path)
 		if (ft_process_ls_directories(&directory, lflags))
 			ret = 1;
 	}
-	ft_lstdel(&(directory.files), &ft_free_file);
+	ft_free_files_list(&(directory.files), lflags);
 	free(directory.path);
 	closedir(current_dir);
 	return (ret);

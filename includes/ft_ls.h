@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:27 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/22 18:27:02 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 16:21:17 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int					ft_update_directory_stats(t_file *file, t_directory *dir);
 void				ft_update_directory_data(t_directory *dir);
 int					ft_print_dir(t_directory *dir, t_lflags *lfs);
 
-int					ft_process_error_dir(char *path, t_lflags *lflags);
+int					ft_process_error_dir(char *full_path, char *path, t_lflags *lflags);
 int					ft_process_error_stat(char *path, int *ret);
 int					ft_fill_path_error_list(char *path, t_list **errs);
 
@@ -142,11 +142,14 @@ int					ft_fill_dir_files_list(t_directory *directory,
 
 int					ft_process_ls(t_lflags* lflags, int i,
 						int argc, char **argv);
-int					ft_process_ls_directory(t_lflags *lflags, char *path);
+int					ft_process_ls_directory(t_lflags *lflags, char *full_path,
+						char *path);
 
 int					ft_print_errors(t_list *errors);
 int					ft_print_directories(t_list *directories, t_lflags *lflgs);
 
 void				ft_free_file(void *file, size_t size);
+void				ft_free_files_list(t_list **list, t_lflags *lflags);
 void				ft_free_directories(t_list **directories);
+
 #endif

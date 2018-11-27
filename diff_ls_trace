@@ -1,0 +1,23 @@
+25c25
+< crw-rw-rw-   1 root     wheel        24,  29 Nov 26 16:04 dtrace
+---
+> crw-rw-rw-   1 root     wheel        24,  22 Nov 26 16:04 dtrace
+30,32c30,32
+< crw-rw-rw-   1 root     wheel        18,  19 Nov 27 17:11 io8log
+< cr--r--r--   1 root     wheel        18,  17 Nov 26 16:04 io8logmt
+< crw-rw-rw-   1 root     wheel        18,  18 Nov 27 17:28 io8logtemp
+---
+> crw-rw-rw-   1 root     wheel        18,  13 Nov 27 17:11 io8log
+> cr--r--r--   1 root     wheel        18,  19 Nov 26 16:04 io8logmt
+> crw-rw-rw-   1 root     wheel        18,  17 Nov 27 17:28 io8logtemp
+180,182c180,182
+< lr-xr-xr-x   1 root     wheel              0 Nov 26 16:04 stderr -> fd/2
+< lr-xr-xr-x   1 root     wheel              0 Nov 26 16:04 stdin -> fd/0
+< lr-xr-xr-x   1 root     wheel              0 Nov 26 16:04 stdout -> fd/1
+---
+> lr-xr-xr-x   1 root     wheel              0 Nov 26 16:04 stderr -> 
+> lr-xr-xr-x   1 root     wheel              0 Nov 26 16:04 stdin -> 
+> lr-xr-xr-x   1 root     wheel              0 Nov 26 16:04 stdout -> 
+(stdout): test with args: -la /dev
+stderr is ok :)
+

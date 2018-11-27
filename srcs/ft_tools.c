@@ -6,24 +6,44 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/22 19:41:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 15:51:21 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void	ft_free_file_long_format(void *f, size_t size)
+{
+	t_file *file;
+
+	(void)size;
+	file = (t_file *)f;
+	free(file->name);
+	free(file->user);
+	free(file->group);
+	if (file->destination != NULL)
+		free(file->destination);
+	free(file);
+}
 
 void	ft_free_file(void *f, size_t size)
 {
 	t_file *file;
 
 	(void)size;
-	file = f;
+	file = (t_file *)f;
 	free(file->name);
-	free(file->user);
-	free(file->group);
-	if (file->destination)
+	if (file->destination != NULL)
 		free(file->destination);
 	free(file);
+}
+
+void	ft_free_files_list(t_list **files, t_lflags *lflags)
+{
+	if (lflags->long_format)
+		ft_lstdel(files, &ft_free_file_long_format);
+	else
+		ft_lstdel(files, &ft_free_file);
 }
 
 void	ft_free_directory(t_directory *directory, size_t size)
@@ -134,7 +154,7 @@ int		ft_print_directories(t_list *directories, t_lflags *lflags)
 	while (ptr != NULL)
 	{
 		directory = (t_file *)(ptr->content);
-		if (ft_process_ls_directory(lflags, directory->name))
+		if (ft_process_ls_directory(lflags, directory->name, directory->name))
 			ret = 1;
 		ptr = ptr->next;
 	}

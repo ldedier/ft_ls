@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:07:00 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/23 14:07:00 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 13:50:37 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ft_fill_path_error_list(char *path, t_list **errors)
 	return (0);
 }
 
-int		ft_process_error_dir(char *path, t_lflags *lflags)
+int		ft_process_error_dir(char *full_path, char *path, t_lflags *lflags)
 {
 	char *str;
 
@@ -50,7 +50,7 @@ int		ft_process_error_dir(char *path, t_lflags *lflags)
 	else
 		ft_printf("\n");
 	if (lflags->verbose)
-		ft_printf("%s:\n", path);
+		ft_printf("%s:\n", full_path);
 	if (!(str = ft_strjoin("ft_ls: ", path)))
 		return (1);
 	perror(str);
