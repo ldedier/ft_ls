@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 15:02:07 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 14:41:42 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 18:51:03 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,7 @@ int		ft_process_ls_directory(t_lflags *lflags, char *full_path, char *path)
 	}
 	if (ft_fill_dir_files_list(&directory, current_dir, full_path, lflags))
 	{
-		closedir(current_dir);
-		ft_lstdel_value(&(directory.files));
-		free(directory.path);
-		return (1);
+		ret = 1;
 	}
 	ft_sort_files_list(&(directory.files), lflags);
 	ft_print_dir(&directory, lflags);

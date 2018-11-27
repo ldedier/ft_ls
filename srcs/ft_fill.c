@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 15:22:21 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/23 15:22:21 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 18:51:14 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		ft_fill_dir_files_list(t_directory *directory, DIR *current_dir,
 		if (lstat(full_path, &stat) == -1)
 		{
 			free(full_path);
-			perror(full_path);
 			return (1);
 		}
 		free(full_path);

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:03:09 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 17:42:34 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/27 18:29:20 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,17 +284,22 @@ int		ft_print_dir_file(t_directory *directory, t_file *file, t_lflags *lflags)
 	return (0);
 }
 
-int		ft_print_dir(t_directory *directory, t_lflags *lflags)
+void	ft_print_header(t_directory *directory, t_lflags *lflags)
 {
-	t_list		*ptr;
-	t_file		*file;
-	
 	if (lflags->first_entry)
 		lflags->first_entry = 0;
 	else
 		ft_printf("\n");
 	if (directory->path && lflags->verbose)
 		ft_printf("%s:\n", directory->path);
+}
+
+int		ft_print_dir(t_directory *directory, t_lflags *lflags)
+{
+	t_list		*ptr;
+	t_file		*file;
+	
+	ft_print_header(directory, lflags);
 	ft_update_directory_data(directory);
 	if (directory->path && lflags->long_format && directory->files)
 		ft_printf("total %d\n", directory->total_blocks);

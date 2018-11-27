@@ -1,7 +1,7 @@
 # note: ls and ft_ls update all of your printed entries access date !
 # this may give confusing diffs with -u option !
 
-make
+make > /dev/null
 ./ft_ls $* > /tmp/my_ls_stdout 2> /dev/null
 ./ft_ls $* > /dev/null 2> /tmp/my_ls_stderr
 ls $* > /tmp/true_ls_stdout 2> /dev/null
