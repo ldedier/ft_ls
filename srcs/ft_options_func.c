@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:12:59 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/23 14:12:59 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 16:07:12 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,4 @@ void	ft_opt_d(t_lflags *lflags)
 {
 	lflags->dir_as_file = 1;
 	lflags->recursive = 0;
-
-}
-
-void	ft_opt_l(t_lflags *lflags)
-{
-	lflags->long_format = 1;
 }

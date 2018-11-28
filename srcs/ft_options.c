@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:09:29 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/23 14:09:29 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 16:06:46 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ static t_opt_func g_opt_arr[NB_CHARS] =
 	['d'] = ft_opt_d,
 	['G'] = ft_opt_g_maj
 };
+
+void	ft_opt_l(t_lflags *lflags)
+{
+	lflags->long_format = 1;
+}
 
 int		ft_describe_options(char *str)
 {
@@ -54,7 +59,7 @@ int		ft_parse_options(char *str, t_lflags *lflags)
 		if (g_opt_arr[(int)str[i]] == NULL)
 		{
 			ft_dprintf(2, "ls: illegal option -- %c\n", str[i]);
-			ft_dprintf(2, "usage: ls [-GRadfglrtu] [file ...]\n"); //to update?
+			ft_dprintf(2, "usage: ls [-GRadfglrtu] [file ...]\n");
 			return (1);
 		}
 		g_opt_arr[(int)str[i]](lflags);

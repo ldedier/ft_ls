@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:07:00 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 23:42:15 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 15:06:37 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,9 @@ int		ft_fill_path_error_tree(char *path, t_tree **errors)
 	t_error *error;
 
 	if (!(error = ft_new_error(path)))
-	{
-	//	ft_lstdel_value(errors);
 		return (1);
-	}
 	if (ft_tree_add_sorted(errors, error, &ft_sort_lexicographic_err))
-	{
-	//	ft_lstdel_value(errors);
 		return (1);
-	}
 	return (0);
 }
 
@@ -57,14 +51,29 @@ int		ft_process_error_dir(char *full_path, char *path, t_lflags *lflags)
 	return (0);
 }
 
-int		ft_process_error_stat(char *path, int *ret)
+int		ft_print_error(t_error *error)
 {
 	char *str;
 
-	if (!(str = ft_strjoin("ft_ls: ", path)))
+	if (!(str = strerror(error->errno_save)))
 		return (1);
-	perror(str);
-	free(str);
-	*ret = 1;
+	ft_dprintf(2, "ft_ls: %s: %s\n", error->path, str);
+	return (0);
+}
+
+int		ft_print_errors(t_tree *errors)
+{
+	t_error *error;
+
+	if (errors != NULL)
+	{
+		if (ft_print_errors(errors->left))
+			return (1);
+		error = (t_error *)(errors->content);
+		if (ft_print_error(error))
+			return (1);
+		if (ft_print_errors(errors->right))
+			return (1);
+	}
 	return (0);
 }

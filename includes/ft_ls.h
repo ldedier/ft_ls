@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:27 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 14:32:58 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 15:03:24 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,12 +154,23 @@ int					ft_process_ls(t_lflags* lflags, int i,
 int					ft_process_ls_directory(t_lflags *lflags, char *full_path,
 						char *path);
 
+int					ft_put_file_symbol(t_file *file, char *str,
+						char *full_path);
+void				ft_put_file_permissions(t_file *file, char *str);
+void				ft_put_file_extended_attribute_or_acls(char *full_path,
+						char *str);
 int					ft_print_errors(t_tree *errors);
 int					ft_print_directories(t_tree *directories, t_lflags *lflgs);
+int					ft_print_time(t_file *file, t_lflags *lflags);
+
+char				*ft_get_full_path(t_directory *directory, t_file *file);
+void				ft_print_size(t_directory *directory, t_file *file);
+void				ft_print_name(t_file *file, t_lflags *lflags, int showdest);
 
 void				ft_free_file(void *file);
 void				ft_free_directory(t_directory *directory, t_lflags *lflags);
 void				ft_free_error(void *error);
 void				ft_free_files_tree(t_tree **tree, t_lflags *lflags);
 void				ft_free_directories(t_tree **directories);
+void				ft_free_env(t_env *e, t_lflags *lflags);
 #endif
