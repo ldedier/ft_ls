@@ -1,18 +1,13 @@
-39333c39333
-< -rw-------@  1 ldedier  2017_paris    31361 Nov 28 16:16 000125.log
----
-> -rw-------@  1 ldedier  2017_paris    31070 Nov 28 16:02 000125.log
-(stdout): test with args: -lRa . /Users/ldedier dwqd
-1,5c1,5
-< ls: dwqd: No such file or directory
+stdout is ok :)
+
+1,4c1,4
 < ls: .DocumentRevisions-V100: Permission denied
 < ls: .TemporaryItems: Permission denied
 < ls: .Trashes: Permission denied
 < ls: .fseventsd: Permission denied
 ---
-> ft_ls: dwqd: No such file or directory
 > ft_ls: .DocumentRevisions-V100: Permission denied
 > ft_ls: .TemporaryItems: Permission denied
 > ft_ls: .Trashes: Permission denied
 > ft_ls: .fseventsd: Permission denied
-(stderr): test with args: -lRa . /Users/ldedier dwqd
+(stderr): test with args: -lRa /Users/ldedier
