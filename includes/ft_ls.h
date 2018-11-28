@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:27 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 00:19:26 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 14:32:58 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct		s_env
 	t_directory		regular_file_group;
 	t_tree			*directories;
 	int				(*stat_func)(const char *restrict , struct stat *restrict);
+	int				ret;
 }					t_env;
 
 typedef void		(*t_opt_func)(t_lflags *);

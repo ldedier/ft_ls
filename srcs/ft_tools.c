@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 00:23:22 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 12:36:09 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_free_file_long_format(void *f)
 	file = (t_file *)f;
 	free(file->name);
 	if (file->user != NULL)
-	free(file->user);
+		free(file->user);
 	if (file->group != NULL)
-	free(file->group);
+		free(file->group);
 	if (file->destination != NULL)
 		free(file->destination);
 	free(file);
@@ -99,19 +99,33 @@ void	ft_update_directory_data(t_directory *dir)
 	dir->max_size_length = ft_off_tlen(dir->max_size);
 }
 
-int		ft_update_directory_stats(t_file *file, t_directory *directory)
+int		ft_populate_usr_gr(t_file *file)
 {
 	struct passwd	*pwd;
 	struct group	*group;
-	off_t			ret;
 
 	if (!(pwd = getpwuid(file->stat.st_uid)))
+	{
+		if (!(file->user = ft_itoa(file->stat.st_uid)))
+			return (1);
+	}
+	else if (!(file->user = ft_strdup(pwd->pw_name)))
 		return (1);
 	if (!(group = getgrgid(file->stat.st_gid)))
+	{
+		if (!(file->group = ft_itoa(file->stat.st_gid)))
+			return (1);
+	}
+	else if (!(file->group = ft_strdup(group->gr_name)))
 		return (1);
-	if (!(file->user = ft_strdup(pwd->pw_name)))
-		return (1);
-	if (!(file->group = ft_strdup(group->gr_name)))
+	return (0);
+}
+
+int		ft_update_directory_stats(t_file *file, t_directory *directory)
+{
+	off_t			ret;
+
+	if (ft_populate_usr_gr(file))
 		return (1);
 	directory->total_blocks += file->stat.st_blocks;
 	if ((ret = ft_strlen(file->user)) > directory->max_length_uid)
@@ -131,18 +145,23 @@ int		ft_update_directory_stats(t_file *file, t_directory *directory)
 int		ft_print_directories(t_tree *tree, t_lflags *lflags)
 {
 	int			ret;
+	int			save;
 	t_file		*directory;
 
 	ret = 0;
 	if (tree != NULL)
 	{
-		if (ft_print_directories(tree->left, lflags))
-			ret = 1;
+		if ((save = ft_print_directories(tree->left, lflags)) == 2)
+			return (2);
+		ret |= save;
 		directory = (t_file *)(tree->content);
-		if (ft_process_ls_directory(lflags, directory->name, directory->name))
-			ret = 1;
-		if (ft_print_directories(tree->right, lflags))
-			ret = 1;
+		if ((save = ft_process_ls_directory(lflags, directory->name,
+				directory->name)) == 2)
+			return (2);
+		ret |= save;
+		if ((save = ft_print_directories(tree->right, lflags)) == 2)
+			return (2);
+		ret |= save;
 	}
 	return (ret);
 }

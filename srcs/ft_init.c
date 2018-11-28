@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 23:13:50 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 14:33:48 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_init_env(t_env *e, t_lflags *lflags)
 	e->directories = NULL;
 	e->errors = NULL;
 	ft_init_directory_no_path(&(e->regular_file_group));
+	e->ret = 0;
 	if (lflags->long_format)
 		e->stat_func = lstat;
 	else

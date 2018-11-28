@@ -6,11 +6,30 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:03:09 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 22:53:47 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 11:44:12 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+int		ft_add_destination_link(t_file *file, char *full_path)
+{
+	if (!(file->destination = ft_strnew(file->stat.st_size == 0 ?
+					1024 : file->stat.st_size)))
+		return (1);
+	if (file->stat.st_size)
+	{
+		if (readlink(full_path, file->destination,
+					file->stat.st_size) < file->stat.st_size)
+			return (1);
+	}
+	else
+	{
+		if (readlink(full_path, file->destination, 1024) == -1)
+			return (1);
+	}
+	return (0);
+}
 
 int		ft_put_file_symbol(t_file *file, char *str, char *full_path)
 {
@@ -21,20 +40,8 @@ int		ft_put_file_symbol(t_file *file, char *str, char *full_path)
 	else if (S_ISLNK(file->stat.st_mode))
 	{
 		str[0] = 'l';
-	 	if (!(file->destination = ft_strnew(file->stat.st_size == 0 ?
-				1024 : file->stat.st_size)))
+		if (ft_add_destination_link(file, full_path))
 			return (1);
-		if (file->stat.st_size)
-		{
-			if (readlink(full_path, file->destination,
-					file->stat.st_size) < file->stat.st_size)
-				return (1);
-		}
-		else
-		{
-			if (readlink(full_path, file->destination, 1024) == -1)
-				return (1);
-		}
 	}
 	else if (S_ISSOCK(file->stat.st_mode))
 		str[0] = 's';
@@ -248,7 +255,6 @@ int		ft_print_long_format(t_directory *directory, t_file *file,
 
 	if (!(full_path = ft_get_full_path(directory, file)))
 		return (1);
-	(void)lflags;
 	if (ft_put_file_symbol(file, str, full_path))
 		return (ft_free_turn(full_path, 1));
 	ft_put_file_permissions(file, str);
@@ -298,7 +304,7 @@ void	ft_print_header(t_directory *directory, t_lflags *lflags)
 int		ft_process_print(t_tree *tree, t_directory *dir, t_lflags *lflags)
 {
 	t_file		*file;
-	
+
 	if (tree != NULL)
 	{
 		if (ft_process_print(tree->left, dir, lflags))

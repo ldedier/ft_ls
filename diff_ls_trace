@@ -1,7 +1,103 @@
-stdout is ok :)
-
-1c1
-< ls: authserver: Permission denied
+3,26d2
+< drwxr-xr-x   11 root  wheel            374 Nov 28 14:28 apache2
+< drwxr-xr-x   33 root  wheel           1122 Nov 28 14:28 asl
+< drwxr-xr-x   14 root  _lp              476 Nov 28 14:28 cups
+< drwxr-xr-x    3 root  wheel            102 Nov 28 14:28 defaults
+< drwxr-xr-x    4 root  wheel            136 Nov 28 14:28 emond.d
+< drwxr-xr-x    2 root  wheel             68 Nov 28 14:28 mach_init.d
+< drwxr-xr-x    2 root  wheel             68 Nov 28 14:28 mach_init_per_login_session.d
+< drwxr-xr-x    2 root  wheel             68 Nov 28 14:28 mach_init_per_user.d
+< drwxr-xr-x    7 root  wheel            238 Nov 28 14:28 newsyslog.d
+< drwxr-xr-x   10 root  wheel            340 Nov 28 14:28 openldap
+< drwxr-xr-x   22 root  wheel            748 Nov 28 14:28 pam.d
+< -rw-r--r--    1 root  wheel           4962 Nov 28 14:28 passwd
+< drwxr-xr-x    3 4389  _lpoperator      102 Nov 28 14:28 paths.d
+< drwxr-xr-x    5 root  wheel            170 Nov 28 14:28 periodic
+< drwxr-xr-x    3 root  wheel            102 Nov 28 14:28 pf.anchors
+< drwxr-xr-x   34 root  wheel           1156 Nov 28 14:28 postfix
+< drwxr-xr-x    2 root  wheel             68 Nov 28 14:28 ppp
+< drwxr-xr-x    4 root  wheel            136 Nov 28 14:28 racoon
+< drwxr-xr-x    6 root  wheel            204 Nov 28 14:28 salt
+< drwxr-xr-x    7 root  wheel            238 Nov 28 14:28 security
+< drwxr-xr-x    4 root  wheel            136 Nov 28 14:28 snmp
+< drwxr-xr-x   17 root  wheel            578 Nov 28 14:28 ssh
+< drwxr-xr-x    5 root  wheel            170 Nov 28 14:28 ssl
+< drwxr-xr-x    2 root  wheel             68 Nov 28 14:28 sudoers.d
+28a5
+> -rw-r--r--    1 root  wheel           4962 Nov 28 14:27 passwd
+29a7,29
+> drwxr-xr-x   11 root  wheel            374 Nov 28 14:20 apache2
+> drwxr-xr-x   33 root  wheel           1122 Nov 28 14:20 asl
+> drwxr-xr-x   14 root  _lp              476 Nov 28 14:20 cups
+> drwxr-xr-x    3 root  wheel            102 Nov 28 14:20 defaults
+> drwxr-xr-x    4 root  wheel            136 Nov 28 14:20 emond.d
+> drwxr-xr-x    2 root  wheel             68 Nov 28 14:20 mach_init.d
+> drwxr-xr-x    2 root  wheel             68 Nov 28 14:20 mach_init_per_login_session.d
+> drwxr-xr-x    2 root  wheel             68 Nov 28 14:20 mach_init_per_user.d
+> drwxr-xr-x    7 root  wheel            238 Nov 28 14:20 newsyslog.d
+> drwxr-xr-x   10 root  wheel            340 Nov 28 14:20 openldap
+> drwxr-xr-x   22 root  wheel            748 Nov 28 14:20 pam.d
+> drwxr-xr-x    3 4389  _lpoperator      102 Nov 28 14:20 paths.d
+> drwxr-xr-x    5 root  wheel            170 Nov 28 14:20 periodic
+> drwxr-xr-x    3 root  wheel            102 Nov 28 14:20 pf.anchors
+> drwxr-xr-x   34 root  wheel           1156 Nov 28 14:20 postfix
+> drwxr-xr-x    2 root  wheel             68 Nov 28 14:20 ppp
+> drwxr-xr-x    4 root  wheel            136 Nov 28 14:20 racoon
+> drwxr-xr-x    6 root  wheel            204 Nov 28 14:20 salt
+> drwxr-xr-x    7 root  wheel            238 Nov 28 14:20 security
+> drwxr-xr-x    4 root  wheel            136 Nov 28 14:20 snmp
+> drwxr-xr-x   17 root  wheel            578 Nov 28 14:20 ssh
+> drwxr-xr-x    5 root  wheel            170 Nov 28 14:20 ssl
+> drwxr-xr-x    2 root  wheel             68 Nov 28 14:20 sudoers.d
+142,145c142,145
+< drwxr-xr-x   35 root  wheel   1190 Nov 28 14:28 extra
+< drwxr-xr-x    4 root  wheel    136 Nov 28 14:28 original
+< drwxr-xr-x    3 root  wheel    102 Nov 28 14:28 other
+< drwxr-xr-x    2 root  wheel     68 Nov 28 14:28 users
 ---
-> ft_ls: authserver: Permission denied
-(stderr): test with args: -Rlat /usr
+> drwxr-xr-x   35 root  wheel   1190 Nov 28 14:20 extra
+> drwxr-xr-x    4 root  wheel    136 Nov 28 14:20 original
+> drwxr-xr-x    3 root  wheel    102 Nov 28 14:20 other
+> drwxr-xr-x    2 root  wheel     68 Nov 28 14:20 users
+194c194
+< drwxr-xr-x  14 root  wheel    476 Nov 28 14:28 extra
+---
+> drwxr-xr-x  14 root  wheel    476 Nov 28 14:20 extra
+265,266c265,266
+< drwxr-xr-x    2 root  _lp      68 Nov 28 14:28 interfaces
+< drwxr-xr-x    2 root  _lp      68 Nov 28 14:28 ppd
+---
+> drwxr-xr-x    2 root  _lp      68 Nov 28 14:20 interfaces
+> drwxr-xr-x    2 root  _lp      68 Nov 28 14:20 ppd
+300c300
+< drwxr-xr-x    3 root  wheel   102 Nov 28 14:28 rules
+---
+> drwxr-xr-x    3 root  wheel   102 Nov 28 14:20 rules
+338,339c338,339
+< drwxr-xr-x    3 root  wheel     102 Nov 28 14:28 certificates
+< drwxr-xr-x   38 root  wheel    1292 Nov 28 14:28 schema
+---
+> drwxr-xr-x    3 root  wheel     102 Nov 28 14:20 certificates
+> drwxr-xr-x   38 root  wheel    1292 Nov 28 14:20 schema
+429,431c429,431
+< drwxr-xr-x   11 root  wheel   374 Nov 28 14:28 daily
+< drwxr-xr-x    5 root  wheel   170 Nov 28 14:28 monthly
+< drwxr-xr-x    4 root  wheel   136 Nov 28 14:28 weekly
+---
+> drwxr-xr-x   11 root  wheel   374 Nov 28 14:20 daily
+> drwxr-xr-x    5 root  wheel   170 Nov 28 14:20 monthly
+> drwxr-xr-x    4 root  wheel   136 Nov 28 14:20 weekly
+472c472
+< drwxr-xr-x    2 root  wheel     68 Nov 28 14:28 postfix-files.d
+---
+> drwxr-xr-x    2 root  wheel     68 Nov 28 14:20 postfix-files.d
+(stdout): test with args: -lRatu /etc/
+1,3c1,3
+< ls: certs: Permission denied
+< ls: minion.d: Permission denied
+< ls: pki: Permission denied
+---
+> ft_ls: certs: Permission denied
+> ft_ls: minion.d: Permission denied
+> ft_ls: pki: Permission denied
+(stderr): test with args: -lRatu /etc/

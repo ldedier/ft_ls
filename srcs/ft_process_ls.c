@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 15:02:07 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 00:21:03 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 14:34:40 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_fill_arg_file(char *arg, struct stat *st, t_env *e, t_lflags *lflags)
 {
 	int ret;
-	
+
 	ret = 0;
 	if (e->stat_func(arg, st) == -1)
 	{
@@ -48,31 +48,49 @@ void	ft_free_env(t_env *e, t_lflags *lflags)
 	ft_free_files_tree(&(e->regular_file_group.files), lflags);
 }
 
+int		ft_print_env(t_env *e, t_lflags *lflags, int *ret)
+{
+	int			save;
+
+	ft_print_errors(e->errors);
+	if (e->regular_file_group.files)
+	{
+		if (ft_print_dir(&(e->regular_file_group), lflags))
+			return (1);
+	}
+	if ((save = ft_print_directories(e->directories, lflags)) == 2)
+		return (1);
+	*ret |= save;
+	return (0);
+}
+
 int		ft_process_ls(t_lflags *lflags, int i, int argc, char **argv)
 {
 	t_env		e;
 	struct stat	st;
 	int 		ret;
+	int 		save;
 
 	ft_init_env(&e, lflags);
-	ret = 0;
 	if (i < argc - 1)
 		lflags->verbose = 1;
 	while (i < argc)
 	{
-		if ((ret = ft_fill_arg_file(argv[i], &st, &e, lflags)) == 2)
+		if ((save = ft_fill_arg_file(argv[i], &st, &e, lflags)) == 2)
 		{
 			ft_free_env(&e, lflags);
 			return (2);
 		}
+		e.ret |= save;
 		i++;
 	}
-	ft_print_errors(e.errors);
-	if (e.regular_file_group.files)
-		ret  = ret | ft_print_dir(&(e.regular_file_group), lflags);
-	ret = ret | ft_print_directories(e.directories, lflags);
+	if (ft_print_env(&e, lflags, &ret))
+	{
+		ft_free_env(&e, lflags);
+		return (2);
+	}
 	ft_free_env(&e, lflags);
-	return (ret);
+	return (e.ret);
 }
 
 int		ft_process_process_ls_directories(t_file *file, t_directory *dir,
@@ -118,13 +136,31 @@ int		ft_process_ls_directories(t_tree *tree, t_directory *dir,
 	return (ret);
 }
 
+int		ft_process_process_ls_directory(t_directory *directory, DIR *cd,
+			char *full_path, t_lflags *lflags)
+{
+	int ret;
+
+	ret = 0;
+	if (ft_fill_dir_files_tree(directory, cd, full_path, lflags))
+		return (1);
+	if (ft_print_dir(directory, lflags))
+		return (1);
+	if (lflags->recursive)
+	{
+		lflags->verbose = 1;
+		if (ft_process_ls_directories(directory->files, directory, lflags))
+			ret = 1;
+	}
+	return (ret);
+}
+
 int		ft_process_ls_directory(t_lflags *lflags, char *full_path, char *path)
 {
 	t_directory		directory;
 	DIR				*cd;
 	int				ret;
-	
-	ret = 0;
+
 	if (ft_init_directory(&directory, full_path))
 		return (2);
 	if (!(cd = opendir(full_path)))
@@ -133,14 +169,11 @@ int		ft_process_ls_directory(t_lflags *lflags, char *full_path, char *path)
 		free(directory.path);
 		return (1);
 	}
-	if ((ret = ft_fill_dir_files_tree(&directory, cd, full_path, lflags)) == 2)
-		return (2);
-	ft_print_dir(&directory, lflags);
-	if (lflags->recursive)
+	if ((ret = ft_process_process_ls_directory(&directory, cd,
+				full_path, lflags)) == 2)
 	{
-		lflags->verbose = 1;
-		if (ft_process_ls_directories(directory.files, &directory, lflags))
-			ret = 1;
+		ft_free_directory(&directory, lflags);
+		return (2);
 	}
 	ft_free_directory(&directory, lflags);
 	closedir(cd);
