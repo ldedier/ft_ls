@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 14:33:48 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 00:37:18 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_init_env(t_env *e, t_lflags *lflags)
 	e->errors = NULL;
 	ft_init_directory_no_path(&(e->regular_file_group));
 	e->ret = 0;
-	if (lflags->long_format)
+	if (lflags->display_format == LONG)
 		e->stat_func = lstat;
 	else
 		e->stat_func = stat;
@@ -33,6 +33,7 @@ void	ft_init_directory_no_path(t_directory *directory)
 	directory->max_length_gid = 0;
 	directory->max_links = 0;
 	directory->max_size = 0;
+	directory->name_max_length = 0;
 	directory->has_devices = 0;
 }
 
@@ -49,7 +50,7 @@ void	ft_init_lflags(t_lflags *lflags)
 	lflags->sort_format = LEXICOGRAPHIC;
 	lflags->sort_func = &ft_sort_lexicographic;
 	lflags->order = 1;
-	lflags->long_format = 0;
+	lflags->display_format = COLUMN;
 	lflags->recursive = 0;
 	lflags->all = 0;
 	lflags->dir_as_file = 0;

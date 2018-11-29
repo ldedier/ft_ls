@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 15:22:21 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 18:58:21 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 00:42:02 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ int			ft_process_fill_dir_files_tree(struct stat stat, char *name,
 	if (!(file = ft_process_fill_files_tree(stat, name,
 			&(directory->files), lflags)))
 		return (1);
-	if (lflags->long_format)
+	if (lflags->display_format == LONG)
 	{
 		if (ft_update_directory_stats(file, directory))
 			return (1);
 	}
+	else
+		ft_update_directory_col_stats(file, directory);
 	return (0);
 }
 

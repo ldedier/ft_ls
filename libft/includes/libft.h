@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 21:03:01 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/28 22:31:58 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ int					ft_tree_add_sorted(t_tree **tree, void *content,
 void				ft_tree_del(t_tree **tree, void (*free_func)(void *));
 void				ft_tree_del_value(t_tree **tree);
 void				ft_tree_del_ptr(t_tree **tree);
+int					ft_treelen(t_tree* tree);
+void				*ft_tree_at_infix(t_tree *tree, int index);
 int					get_next_line(const int fd, char **line);
 
 void				ft_free_split(char **split);

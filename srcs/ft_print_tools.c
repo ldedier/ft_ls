@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 14:59:14 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 17:45:35 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 00:50:06 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ void	ft_fill_str_col(t_file *file, t_lflags *lflags, char *str)
 	}
 }
 
+void	ft_print_name_column(t_file *file, t_lflags *lflags, int padding)
+{
+	char str_col[MAX_COL];
+
+	ft_memset(str_col, 0, MAX_COL);
+	ft_fill_str_col(file, lflags, str_col);
+	ft_printf("%s%-*s%s", str_col, padding, file->name,
+		lflags->colored ? EOC : "");
+}
+
 void	ft_print_name(t_file *file, t_lflags *lflags, int show_dest)
 {
 	char str_col[MAX_COL];
@@ -43,24 +53,8 @@ void	ft_print_name(t_file *file, t_lflags *lflags, int show_dest)
 		ft_printf("%s%s%s -> %s\n", str_col, file->name,
 			lflags->colored ? EOC : "", file->destination);
 	else
-		ft_printf("%s%s%s\n", str_col, file->name, lflags->colored ? EOC : "");
-}
-
-char	*ft_get_full_path(t_directory *dir, t_file *file)
-{
-	char *full_path;
-
-	if (dir->path)
-	{
-		if (!(full_path = ft_strjoin_3(dir->path, "/", file->name)))
-			return (NULL);
-	}
-	else
-	{
-		if (!(full_path = ft_strdup(file->name)))
-			return (NULL);
-	}
-	return (full_path);
+		ft_printf("%s%s%s\n", str_col, file->name,
+			lflags->colored ? EOC : "");
 }
 
 void	ft_print_majors_minors(t_directory *directory, t_file *file)

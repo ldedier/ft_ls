@@ -10,4 +10,4 @@ stdout is ok :)
 > ft_ls: .TemporaryItems: Permission denied
 > ft_ls: .Trashes: Permission denied
 > ft_ls: .fseventsd: Permission denied
-(stderr): test with args: -lRa /Users/ldedier
+(stderr): test with args: -Rla /Users/ldedier

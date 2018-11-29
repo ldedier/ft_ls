@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 14:42:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 00:42:35 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_free_file(void *f)
 
 void	ft_free_files_tree(t_tree **files, t_lflags *lflags)
 {
-	if (lflags->long_format)
+	if (lflags->display_format == LONG)
 		ft_tree_del(files, &ft_free_file_long_format);
 	else
 		ft_tree_del(files, &ft_free_file);

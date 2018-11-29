@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:03:09 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 16:42:30 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 00:38:49 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,26 @@ int		ft_print_short_format(t_file *file, t_lflags *lflags)
 	return (0);
 }
 
-int		ft_print_dir_file(t_directory *directory,
+int		ft_print_dir_file_long(t_directory *directory,
 			t_file *file, t_lflags *lflags)
 {
-	if (lflags->long_format)
-	{
-		if (ft_print_long_format(directory, file, lflags))
-			return (1);
-	}
-	else
-		ft_print_name(file, lflags, 0);
+	if (ft_print_long_format(directory, file, lflags))
+		return (1);
 	return (0);
 }
 
-int		ft_process_print(t_tree *tree, t_directory *dir, t_lflags *lflags)
+int		ft_process_print_long(t_tree *tree, t_directory *dir, t_lflags *lflags)
 {
 	t_file		*file;
 
 	if (tree != NULL)
 	{
-		if (ft_process_print(tree->left, dir, lflags))
+		if (ft_process_print_long(tree->left, dir, lflags))
 			return (1);
 		file = tree->content;
-		if (ft_print_dir_file(dir, file, lflags))
+		if (ft_print_dir_file_long(dir, file, lflags))
 			return (1);
-		if (ft_process_print(tree->right, dir, lflags))
+		if (ft_process_print_long(tree->right, dir, lflags))
 			return (1);
 	}
 	return (0);
@@ -83,7 +78,10 @@ int		ft_print_dir(t_directory *directory, t_lflags *lflags)
 	if (directory->path && lflags->verbose)
 		ft_printf("%s:\n", directory->path);
 	ft_update_directory_data(directory);
-	if (directory->path && lflags->long_format && directory->files)
+	if (directory->path && lflags->display_format == LONG && directory->files)
 		ft_printf("total %d\n", directory->total_blocks);
-	return (ft_process_print(directory->files, directory, lflags));
+	if (lflags->display_format == LONG)
+		return (ft_process_print_long(directory->files, directory, lflags));
+	else
+		return (ft_print_short(directory->files, directory, lflags));
 }

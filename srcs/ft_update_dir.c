@@ -1,42 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_update_dir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 14:44:02 by ldedier          ###   ########.fr       */
+/*   Created: 2018/11/29 00:47:31 by ldedier           #+#    #+#             */
+/*   Updated: 2018/11/29 00:47:33 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-int		ft_off_tlen(off_t val)
-{
-	int res;
-
-	res = 1;
-	while (val / 10 != 0)
-	{
-		val /= 10;
-		res++;
-	}
-	return (res);
-}
-
-int		ft_nlink_tlen(nlink_t val)
-{
-	int res;
-
-	res = 1;
-	while (val / 10 != 0)
-	{
-		val /= 10;
-		res++;
-	}
-	return (res);
-}
 
 void	ft_update_directory_data(t_directory *dir)
 {
@@ -79,10 +53,18 @@ int		ft_update_directory_stats(t_file *file, t_directory *directory)
 		directory->max_length_gid = ret;
 	if (directory->max_links < file->stat.st_nlink)
 		directory->max_links = file->stat.st_nlink;
-	if ((ret = file->stat.st_size) >
-			directory->max_size)
+	if ((ret = file->stat.st_size) > directory->max_size)
 		directory->max_size = ret;
 	if (S_ISBLK(file->stat.st_mode) || S_ISCHR(file->stat.st_mode))
 		directory->has_devices = 1;
 	return (0);
+}
+
+void	ft_update_directory_col_stats(t_file *file, t_directory *directory)
+{
+	int ret;
+
+	ret = ft_strlen(file->name);
+	if (directory->name_max_length < ret)
+		directory->name_max_length = ret;
 }

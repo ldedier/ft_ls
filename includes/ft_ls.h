@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:27 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 21:02:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 00:58:15 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/ioctl.h>
 # include "libft.h"
 
 # define MAX_COL	30
 # define XATTR_SIZE	100000
 # define DIR_COL	L_CYAN BOLD
-# define CHR_COL	BLUE BYELLOW
-# define BLK_COL	BLUE BCYAN
+# define CHR_COL	BLUE
+# define BLK_COL	BLUE
 # define FIFO_COL	RED
 # define SOCK_COL	RED
 
@@ -51,13 +52,20 @@ typedef enum		e_sort
 	UNSORTED
 }					t_sort;
 
+typedef enum		e_format
+{
+	COLUMN,
+	LONG,
+	ALIGNED
+}					t_format;
+
 typedef struct		s_lflags
 {
 	t_sort			sort_format;
+	t_format		display_format;
 	int				(*sort_func)(void *,void *);
 	char			order;
 	char			last_access_flag;
-	char			long_format;
 	char			recursive;
 	char			all;
 	char			show_owner;
@@ -85,7 +93,16 @@ typedef struct		s_directory
 	off_t			max_size;
 	int				max_size_length;
 	char			has_devices;
+	off_t			name_max_length;
 }					t_directory;
+
+typedef struct		s_display_tab
+{
+	int				nb_entries;
+	int				nb_columns;
+	int				nb_lines;
+	int				line_number;
+}					t_display_tab;
 
 typedef struct		s_env
 {
@@ -109,7 +126,7 @@ void				ft_opt_r(t_lflags *lflags);
 void				ft_opt_u(t_lflags *lflags);
 void				ft_opt_t(t_lflags *lflags);
 void				ft_opt_l(t_lflags *lflags);
-
+void				ft_opt_1(t_lflags *lflags);
 int					ft_sort_lexicographic_err(void *file1, void *file2);
 int					ft_sort_lexicographic(void *file1, void *file2);
 int					ft_sort_last_access(void *file1, void *file2);
@@ -120,6 +137,8 @@ int					ft_sort_last_access_inv(void *file1, void *file2);
 int					ft_sort_modification_time_inv(void *file1, void *file2);
 
 int					ft_update_directory_stats(t_file *file, t_directory *dir);
+void				ft_update_directory_col_stats(t_file *file,
+						t_directory *directory);
 void				ft_update_directory_data(t_directory *dir);
 int					ft_print_dir(t_directory *dir, t_lflags *lfs);
 
@@ -165,12 +184,22 @@ int					ft_print_time(t_file *file, t_lflags *lflags);
 
 char				*ft_get_full_path(t_directory *directory, t_file *file);
 void				ft_print_size(t_directory *directory, t_file *file);
+int					ft_print_columns(t_tree *files, t_directory *directory,
+						t_lflags *lflags);
 void				ft_print_name(t_file *file, t_lflags *lflags, int showdest);
-
+void				ft_print_name_column(t_file *file, t_lflags *lflags,
+						int padding);
+int					ft_print_short(t_tree *files, t_directory *directory,
+						t_lflags *lflags);
+void				ft_process_print_short(t_tree *files, t_lflags *lflags);
 void				ft_free_file(void *file);
 void				ft_free_directory(t_directory *directory, t_lflags *lflags);
 void				ft_free_error(void *error);
 void				ft_free_files_tree(t_tree **tree, t_lflags *lflags);
 void				ft_free_directories(t_tree **directories);
 void				ft_free_env(t_env *e, t_lflags *lflags);
+
+char				*ft_get_full_path(t_directory *dir, t_file *file);
+int					ft_nlink_tlen(nlink_t val);
+int					ft_off_tlen(off_t val);
 #endif
