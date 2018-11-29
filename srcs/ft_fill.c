@@ -70,7 +70,7 @@ int			ft_process_fill_dir_files_tree(struct stat stat, char *name,
 		if (ft_update_directory_stats(file, directory))
 			return (1);
 	}
-	else
+	else if (lflags->display_format == COLUMN)
 		ft_update_directory_col_stats(file, directory);
 	return (0);
 }
