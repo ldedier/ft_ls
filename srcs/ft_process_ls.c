@@ -41,7 +41,7 @@ int		ft_fill_arg_file(char *arg, struct stat *st, t_env *e, t_lflags *lflags)
 	return (ret);
 }
 
-int		ft_print_env(t_env *e, t_lflags *lflags, int *ret)
+int		ft_print_env(t_env *e, t_lflags *lflags)
 {
 	int			save;
 
@@ -53,7 +53,7 @@ int		ft_print_env(t_env *e, t_lflags *lflags, int *ret)
 	}
 	if ((save = ft_print_directories(e->directories, lflags)) == 2)
 		return (1);
-	*ret |= save;
+	e->ret |= save;
 	return (0);
 }
 
@@ -61,7 +61,6 @@ int		ft_process_ls(t_lflags *lflags, int i, int argc, char **argv)
 {
 	t_env		e;
 	struct stat	st;
-	int			ret;
 	int			save;
 
 	ft_init_env(&e, lflags);
@@ -77,7 +76,7 @@ int		ft_process_ls(t_lflags *lflags, int i, int argc, char **argv)
 		e.ret |= save;
 		i++;
 	}
-	if (ft_print_env(&e, lflags, &ret))
+	if (ft_print_env(&e, lflags))
 	{
 		ft_free_env(&e, lflags);
 		return (2);
