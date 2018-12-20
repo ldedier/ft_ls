@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 22:09:25 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 22:57:24 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 14:43:34 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void		*ft_tree_at_infix_process(t_tree *tree, int *index)
 
 void		*ft_tree_at_infix(t_tree *tree, int index)
 {
-	return ft_tree_at_infix_process(tree, &index);
+	return (ft_tree_at_infix_process(tree, &index));
 }

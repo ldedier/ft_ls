@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:03:09 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/29 00:38:49 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/12/20 12:42:50 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,17 @@ int		ft_print_long_format(t_directory *directory, t_file *file,
 	ft_put_file_permissions(file, str);
 	ft_put_file_extended_attribute_or_acls(full_path, str);
 	str[11] = '\0';
-	ft_printf("%s", str);
-	ft_printf(" %*d", directory->max_links_length, file->stat.st_nlink);
+	ft_printf("%s %*d", str, directory->max_links_length, file->stat.st_nlink);
 	if (lflags->show_owner)
-		ft_printf(" %-*s ", directory->max_length_uid, file->user);
-	ft_printf(" %-*s ", directory->max_length_gid, file->group);
+		ft_printf(" %-*s  %-*s ", directory->max_length_uid, file->user,
+			directory->max_length_gid, file->group);
+	else
+		ft_printf(" %-*s ", directory->max_length_gid, file->group);
 	ft_print_size(directory, file);
 	if (ft_print_time(file, lflags))
 		return (ft_free_turn(full_path, 1));
 	ft_print_name(file, lflags, 1);
 	return (ft_free_turn(full_path, 0));
-}
-
-int		ft_print_short_format(t_file *file, t_lflags *lflags)
-{
-	(void)lflags;
-	ft_printf("%s\n", file->name);
-	return (0);
 }
 
 int		ft_print_dir_file_long(t_directory *directory,

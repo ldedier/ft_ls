@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 15:22:21 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/29 00:42:02 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 14:49:28 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,6 @@ t_file		*ft_new_file(struct stat stat, char *name)
 	res->group = NULL;
 	res->destination = NULL;
 	return (res);
-}
-
-int			ft_should_add_entry(struct dirent entry, t_lflags *lflags)
-{
-	if (!lflags->all && entry.d_name[0] == '.' && !(lflags->dir_as_file &&
-		!ft_strcmp((char *)entry.d_name, ".")))
-		return (0);
-	else if (lflags->dir_as_file &&
-		ft_strcmp((char *)entry.d_name, "."))
-		return (0);
-	return (1);
 }
 
 t_file		*ft_process_fill_files_tree(struct stat stat, char *name,
@@ -78,26 +67,19 @@ int			ft_process_fill_dir_files_tree(struct stat stat, char *name,
 int			ft_fill_dir_files_tree(t_directory *directory, DIR *current_dir,
 			char *path, t_lflags *lflags)
 {
-	struct stat		stat;
 	struct dirent	*entry;
-	char			*full_path;
 
+	if (directory->has_stat && directory->stat.st_ino == lflags->dev_fd_ino)
+	{
+		if (ft_add_entry(directory, ".", path, lflags))
+			return (1);
+		if (ft_add_entry(directory, "..", path, lflags))
+			return (1);
+	}
 	while ((entry = readdir(current_dir)) != NULL)
 	{
-		if (ft_should_add_entry(*entry, lflags))
-		{
-			if (!(full_path = ft_strjoin_3(path, "/", entry->d_name)))
-				return (1);
-			if (lstat(full_path, &stat) == -1)
-			{
-				free(full_path);
-				return (0);
-			}
-			free(full_path);
-			if (ft_process_fill_dir_files_tree(stat, entry->d_name,
-						directory, lflags))
-				return (1);
-		}
+		if (ft_add_entry(directory, entry->d_name, path, lflags))
+			return (1);
 	}
 	return (0);
 }

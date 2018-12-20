@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 14:12:59 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 16:07:12 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/12/20 12:36:39 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_opt_r_maj(t_lflags *lflags)
 void	ft_opt_g(t_lflags *lflags)
 {
 	lflags->show_owner = 0;
+	lflags->display_format = LONG;
 }
 
 void	ft_opt_g_maj(t_lflags *lflags)

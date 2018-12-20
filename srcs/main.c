@@ -6,12 +6,11 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:56 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/29 00:52:41 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/12/20 12:48:37 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
 /*
 void __attribute__((destructor)) end();
 
@@ -21,7 +20,6 @@ void	end(void)
 	while(1);
 }
 */
-
 void	ft_print_main_error(int ret)
 {
 	if (ret == 2)

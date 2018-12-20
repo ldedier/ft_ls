@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 22:31:58 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 14:45:31 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ void				ft_lstpushback(t_list **alst, t_list *newelem);
 void				*ft_lstpop_ptr(t_list **lst);
 void				ft_lstpop(t_list **lst);
 int					ft_lstlength(t_list *list);
-int                 ft_add_to_list_ptr(t_list **list, void *content,
+int					ft_add_to_list_ptr(t_list **list, void *content,
 						size_t size);
-int                 ft_add_to_list_ptr_back(t_list **list, void *content,
+int					ft_add_to_list_ptr_back(t_list **list, void *content,
 						size_t size);
-int                 ft_add_to_list_back(t_list **list, void *content,
+int					ft_add_to_list_back(t_list **list, void *content,
 						size_t size);
 void				ft_lstdel_ptr(t_list **list);
 void				ft_lstdel_value(t_list **list);
@@ -113,7 +113,6 @@ int					ft_delete_node(t_list **prev, t_list **ptr, t_list **vs);
 int					ft_delete_node_ptr(t_list **prv, t_list **ptr, t_list **vs);
 void				ft_lst_mergesort(t_list **list,
 						int (*sort)(void *, void *), int rev);
-
 
 void				ft_sort_tab(int *tab, size_t size);
 
@@ -128,7 +127,7 @@ int					ft_tree_add_sorted(t_tree **tree, void *content,
 void				ft_tree_del(t_tree **tree, void (*free_func)(void *));
 void				ft_tree_del_value(t_tree **tree);
 void				ft_tree_del_ptr(t_tree **tree);
-int					ft_treelen(t_tree* tree);
+int					ft_treelen(t_tree *tree);
 void				*ft_tree_at_infix(t_tree *tree, int index);
 int					get_next_line(const int fd, char **line);
 

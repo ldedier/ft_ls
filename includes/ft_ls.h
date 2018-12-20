@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 13:42:27 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/29 00:58:15 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/11/29 14:59:01 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 # define XATTR_SIZE	100000
 # define DIR_COL	L_CYAN BOLD
 # define CHR_COL	BLUE
-# define BLK_COL	BLUE
-# define FIFO_COL	RED
-# define SOCK_COL	RED
+# define BLK_COL	L_BLUE
+# define FIFO_COL	YELLOW
+# define SOCK_COL	L_MAGENTA
 
 typedef struct		s_file
 {
@@ -63,7 +63,7 @@ typedef struct		s_lflags
 {
 	t_sort			sort_format;
 	t_format		display_format;
-	int				(*sort_func)(void *,void *);
+	int				(*sort_func)(void *, void *);
 	char			order;
 	char			last_access_flag;
 	char			recursive;
@@ -73,6 +73,7 @@ typedef struct		s_lflags
 	char			colored;
 	char			verbose;
 	char			first_entry;
+	ino_t			dev_fd_ino;
 }					t_lflags;
 
 typedef struct		s_error
@@ -94,6 +95,8 @@ typedef struct		s_directory
 	int				max_size_length;
 	char			has_devices;
 	off_t			name_max_length;
+	char			has_stat;
+	struct stat		stat;
 }					t_directory;
 
 typedef struct		s_display_tab
@@ -109,7 +112,7 @@ typedef struct		s_env
 	t_tree			*errors;
 	t_directory		regular_file_group;
 	t_tree			*directories;
-	int				(*stat_func)(const char *restrict , struct stat *restrict);
+	int				(*stat_func)(const char *restrict, struct stat *restrict);
 	int				ret;
 }					t_env;
 
@@ -142,7 +145,8 @@ void				ft_update_directory_col_stats(t_file *file,
 void				ft_update_directory_data(t_directory *dir);
 int					ft_print_dir(t_directory *dir, t_lflags *lfs);
 
-int					ft_process_error_dir(char *full_path, char *path, t_lflags *lflags);
+int					ft_process_error_dir(char *full_path, char *path, t_lflags
+						*lflags);
 int					ft_process_error_stat(char *path, int *ret);
 int					ft_fill_path_error_tree(char *path, t_tree **errs);
 
@@ -154,9 +158,6 @@ int					ft_init_directory(t_directory *dir, char *path);
 void				ft_init_lflags(t_lflags *lflags);
 void				ft_init_env(t_env *e, t_lflags *lflags);
 
-//void				ft_sort_files_list(t_list **files, t_lflags *lflags);
-//void				ft_sort_errors(t_list **errors);
-
 t_file				*ft_process_fill_files_tree(struct stat stat, char *path,
 						t_tree **files, t_lflags *lflags);
 
@@ -164,11 +165,13 @@ int					ft_process_fill_dir_files_tree(struct stat stat, char *path,
 						t_directory *directory, t_lflags *lflags);
 int					ft_fill_dir_files_tree(t_directory *directory,
 						DIR *current_dir, char *path, t_lflags *lflags);
+int					ft_add_entry(t_directory *directory, char *entry,
+						char *path, t_lflags *lflags);
 /*
 ** process ls
 */
 
-int					ft_process_ls(t_lflags* lflags, int i,
+int					ft_process_ls(t_lflags *lflags, int i,
 						int argc, char **argv);
 int					ft_process_ls_directory(t_lflags *lflags, char *full_path,
 						char *path);

@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/21 13:40:59 by ldedier           #+#    #+#              #
-#    Updated: 2018/11/29 00:28:27 by ldedier          ###   ########.fr        #
+#    Updated: 2018/11/29 14:47:25 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS_NO_PREFIX =	main.c ft_options.c ft_options_sort.c ft_sorts.c ft_print.c\
 					ft_fill.c ft_tools.c ft_process_dir.c\
 					ft_ls_frees.c ft_update_dir.c ft_long_format_left.c\
 					ft_print_time.c ft_print_tools.c ft_sorts_inv.c\
-					ft_print_short.c
+					ft_print_short.c ft_add_entry.c
 
 
 INCLUDES_NO_PREFIX = ft_ls.h
