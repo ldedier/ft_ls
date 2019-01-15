@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 15:02:07 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/28 14:40:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2018/12/20 14:32:00 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_process_process_ls_directories(t_file *file, t_directory *dir,
 
 	ret = 0;
 	if (S_ISDIR(file->stat.st_mode) &&
-			strcmp(file->name, ".") && strcmp(file->name, ".."))
+			ft_strcmp(file->name, ".") && ft_strcmp(file->name, ".."))
 	{
 		if (!(full_path = ft_strjoin_3(dir->path, "/", file->name)))
 			return (2);
